@@ -1,1 +1,8 @@
-package fintech_app
+package app
+
+func main() {
+
+
+}
+
+
