@@ -2,19 +2,19 @@ package migrations
 
 import (
 	"github.com/bodecci/fintech-bank-app/cmd/helpers"
-	"github.com/bodecci/fintech-bank-app/interfaces"
-	gorm "github.com/jinzhu/gorm"
+	"github.com/bodecci/fintech-bank-app/cmd/interfaces"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
-func connectDB() *gorm.DB {
-	db, err := gorm.Open("postgres", "host=127.0.0.1 port=5432 user=user dbname=dbname password=password sslmode=disable")
-	helpers.HandleErr(err)
-	return db
-}
+// func connectDB() *gorm.DB {
+// 	db, err := gorm.Open("postgres", "host=127.0.0.1 port=5432 user=postgres dbname=bankapp password=postgres sslmode=disable")
+// 	HandleErr(err)
+
+// 	return db
+// }
 
 func createAccounts() {
-	db := connectDB()
+	db := helpers.ConnectDB()
 
 	users := &[2]interfaces.User{
 		{Username: "Bodmas", Email: "bodmas@bodmas.com"},
@@ -42,7 +42,7 @@ func createAccounts() {
 func Migrate() {
 	User := &interfaces.User{}
 	Account := &interfaces.Account{}
-	db := connectDB()
+	db := helpers.ConnectDB()
 	db.AutoMigrate(&User, &Account)
 	defer db.Close()
 
